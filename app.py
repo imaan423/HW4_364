@@ -171,7 +171,7 @@ class GifSearchForm(FlaskForm):
 class CollectionCreateForm(FlaskForm):
     name = StringField('Collection Name', validators=[Required()])
     #I added the parameter, coerce, to gif_picks since I wanted to get the gif id instead of the gif title (since the gif title isn’t necessarily unique between gifs)
-    gif_picks = SelectMultipleField('GIFs to include', coerce=int)
+    gif_picks = SelectMultipleField('GIFs to include',coerce=int)
     submit = SubmitField("Create Collection")
 
 ########################
