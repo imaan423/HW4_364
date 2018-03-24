@@ -116,11 +116,8 @@ class PersonalGifCollection(db.Model):
     __tablename__ = "Personalgifcollection"
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(255))
-    # search = db.relationship('user',secondary=search_gifs,backref=db.backref('collection',lazy='dynamic'),lazy='dynamic')
-    
     # This model should also have a many to many relationship with the Gif model (one gif might be in many personal collections, one personal collection could have many gifs in it).
     gif = db.relationship('Gif',secondary=user_collection, backref=db.backref('Personalgifcollection',lazy='dynamic'),lazy='dynamic')
-
     # This model should have a one-to-many relationship with the User model (one user, many personal collections of gifs with different names -- say, "Happy Gif Collection" or "Sad Gif Collection")
     user_name = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
@@ -203,10 +200,6 @@ def get_gif_by_id(id):
 
 def get_or_create_gif(title, url):
     """Always returns a Gif instance"""
-    # if not db.session.query(Gif).filter(Gif.title==title).count(): 
-    #      db.session.add(Gif(title=title, embedURL=url))
-    #      db.session.commit()
-    # return db.session.query(Gif).filter(Gif.title==title).first()
 
     gif = Gif.query.filter_by(title = title, embedURL = url).first()
     if not gif:
